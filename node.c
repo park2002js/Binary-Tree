@@ -2,7 +2,7 @@
 
 #include "node.h"
 
-Node *NodeNew(int val) {
+Node *NodeNew(void* val) {
     Node *n = malloc(sizeof(Node));
     n->val = val;
     n->next = NULL;

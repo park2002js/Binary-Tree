@@ -2,10 +2,9 @@
 #define BINARY_TREE_NODE_H_
 
 typedef struct Node {
-    int val;
+    void* val;
     struct Node *next;
 } Node;
 
-Node *NodeNew(int val);
-
+Node *NodeNew(void* val);
 #endif

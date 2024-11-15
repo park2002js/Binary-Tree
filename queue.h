@@ -10,8 +10,8 @@ typedef struct Queue {
 } Queue;
 
 void QueueInit(Queue *q);
-void QueuePush(Queue *q, int val);
-int QueuePeek(Queue *q);
-int QueuePop(Queue *q);
+void QueuePush(Queue *q, void* val);
+void* QueuePeek(Queue *q);
+void* QueuePop(Queue *q);
 
 #endif

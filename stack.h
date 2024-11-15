@@ -9,8 +9,8 @@ typedef struct Stack {
 } Stack;
 
 void StackInit(Stack *s);
-void StackPush(Stack *s, int val);
-int StackPeek(Stack *s);
-int StackPop(Stack *s);
+void StackPush(Stack *s, void *val);
+void* StackPeek(Stack *s);
+void* StackPop(Stack *s);
 
 #endif

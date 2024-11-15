@@ -8,20 +8,20 @@ void StackInit(Stack *s) {
     s->sz = 0;
 }
 
-void StackPush(Stack *s, int val) {
+void StackPush(Stack *s, void *val) {
     Node *n = NodeNew(val);
     n->next = s->top;
     s->top = n;
     s->sz++;
 }
 
-int StackPeek(Stack *s) {
+void* StackPeek(Stack *s) {
     return s->top->val;
 }
 
-int StackPop(Stack *s) {
+void *StackPop(Stack *s) {
     Node *n = s->top;
-    int val = n->val;
+    void* val = n->val;
     s->top = s->top->next;
     s->sz--;
     free(n);

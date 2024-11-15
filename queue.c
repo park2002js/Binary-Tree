@@ -1,5 +1,4 @@
 #include <stdlib.h>
-
 #include "node.h"
 #include "queue.h"
 
@@ -9,7 +8,7 @@ void QueueInit(Queue *q) {
     q->sz = 0;
 }
 
-void QueuePush(Queue *q, int val) {
+void QueuePush(Queue *q, void* val) {
     Node *n = NodeNew(val);
     if (q->back)
         q->back->next = n;
@@ -19,13 +18,17 @@ void QueuePush(Queue *q, int val) {
     q->sz++;
 }
 
-int QueuePeek(Queue *q) {
+void* QueuePeek(Queue *q) {
     return q->front->val;
 }
 
-int QueuePop(Queue *q) {
+void* QueuePop(Queue *q) {
+    if (q->front == NULL) {
+        return NULL;
+    }
+
     Node *n = q->front;
-    int val = n->val;
+    void *val = n->val;
     q->front = q->front->next;
     if (!q->front)
         q->back = NULL;
