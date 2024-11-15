@@ -3,17 +3,17 @@
 #include "binary_tree.h"
 
 int Precedence(int op) {
-    if (op == '+' || op == '-') {
+    if (op == '+' || op == '-')
         return 1;
-    }
-    if (op == '*' || op == '/') {
+    
+    if (op == '*' || op == '/')
         return 2;
-    }
+    
     return 0;
 }
 
 TreeNode *TreeNodeNew(int data) {
-    TreeNode *node = (TreeNode*)malloc(sizeof(TreeNode));
+    TreeNode *node = (TreeNode*) malloc(sizeof(TreeNode));
     node->data = data;
     node->left = node->right = NULL;
     return node;
@@ -44,25 +44,24 @@ void PostfixOrder(TreeNode* head) {
 }
 
 void LevelOrder(TreeNode* head) {
-    if (!head) {
+    if (!head)
         return;
-    }
-    Queue q;
-    QueueInit(&q);
-    QueuePush(&q, head);
+    
+    VoidQueue q;
+    VoidQueueInit(&q);
+    VoidQueuePush(&q, head);
 
-    while (head != NULL) {
-        head = (TreeNode*)QueuePop(&q);
+    while (q.sz > 0) {
+        head = (TreeNode*) VoidQueuePop(&q);
 
         if (head != NULL) {
             printf("%c ", head->data);
 
-            if (head->left != NULL) {
-                QueuePush(&q, head->left);
-            }
-            if (head->right != NULL) {
-                QueuePush(&q, head->right);
-            }
+            if (head->left != NULL)
+                VoidQueuePush(&q, head->left);
+            
+            if (head->right != NULL)
+                VoidQueuePush(&q, head->right);
         }
     }
 }
