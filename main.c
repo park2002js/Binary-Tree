@@ -40,27 +40,27 @@ int main() {
     printf("Queue size: %d\n", q.sz);
 
     // TreeNode operations
-    TreeNode* root = createTreeNode('A');
-    root->left = createTreeNode('B');
-    root->right = createTreeNode('C');
-    root->left->left = createTreeNode('D');
-    root->left->right = createTreeNode('E');
-    root->right->left = createTreeNode('F');
+    TreeNode* root = TreeNodeNew('A');
+    root->left = TreeNodeNew('B');
+    root->right = TreeNodeNew('C');
+    root->left->left = TreeNodeNew('D');
+    root->left->right = TreeNodeNew('E');
+    root->right->left = TreeNodeNew('F');
 
     printf("Level-order: ");
-    levelOrder(root);
+    LevelOrder(root);
     printf("\n");
 
     printf("Infix-order: ");
-    infixOrder(root);
+    InfixOrder(root);
     printf("\n");
 
     printf("Prefix-order: ");
-    prefixOrder(root);
+    PrefixOrder(root);
     printf("\n");
 
     printf("Postfix-order: ");
-    postfixOrder(root);
+    PostfixOrder(root);
     printf("\n");
 
     return 0;

@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "binary_tree.h"
 
-int precedence(int op) {
+int Precedence(int op) {
     if (op == '+' || op == '-') {
         return 1;
     }
@@ -12,38 +12,38 @@ int precedence(int op) {
     return 0;
 }
 
-TreeNode *createTreeNode(int data) {
+TreeNode *TreeNodeNew(int data) {
     TreeNode *node = (TreeNode*)malloc(sizeof(TreeNode));
     node->data = data;
     node->left = node->right = NULL;
     return node;
 }
 
-void infixOrder(TreeNode *head) {
+void InfixOrder(TreeNode *head) {
     if (head) {
-        infixOrder(head->left);
+        InfixOrder(head->left);
         printf("%c ", head->data);
-        infixOrder(head->right);
+        InfixOrder(head->right);
     }
 }
 
-void prefixOrder(TreeNode* head) {
+void PrefixOrder(TreeNode* head) {
     if (head) {
         printf("%c ", head->data);
-        prefixOrder(head->left);
-        prefixOrder(head->right);
+        PrefixOrder(head->left);
+        PrefixOrder(head->right);
     }
 }
 
-void postfixOrder(TreeNode* head) {
+void PostfixOrder(TreeNode* head) {
     if (head) {
-        postfixOrder(head->left);
-        postfixOrder(head->right);
+        PostfixOrder(head->left);
+        PostfixOrder(head->right);
         printf("%c ", head->data);
     }
 }
 
-void levelOrder(TreeNode* head) {
+void LevelOrder(TreeNode* head) {
     if (!head) {
         return;
     }

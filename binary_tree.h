@@ -10,9 +10,9 @@ typedef struct TreeNode {
     struct TreeNode *right;
 } TreeNode;
 
-TreeNode *createTreeNode(int data);
-void infixOrder(TreeNode *head);
-void prefixOrder(TreeNode *head);
-void postfixOrder(TreeNode *head);
-void levelOrder(TreeNode *head);
+TreeNode *TreeNodeNew(int data);
+void InfixOrder(TreeNode *head);
+void PrefixOrder(TreeNode *head);
+void PostfixOrder(TreeNode *head);
+void LevelOrder(TreeNode *head);
 #endif //BINARY_TREE_BINARY_TREE_H
