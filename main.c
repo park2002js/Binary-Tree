@@ -1,45 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "binary_tree.h"
+
 #include "stack.h"
 #include "queue.h"
+#include "binary_tree.h"
 
 int main() {
-    Stack s;
-    Queue q;
-    StackInit(&s);
-    QueueInit(&q);
+    IntStack s;
+    IntStackInit(&s);
 
     // Push operations.
-    for (int i = 0; i < 26; i++) {
-        int *stackVal = malloc(sizeof(int));
-        int *queueVal = malloc(sizeof(int));
-
-        *stackVal = 'A' + i;
-        *queueVal = 'A' + i;
-
-        StackPush(&s, stackVal);
-        QueuePush(&q, queueVal);
-    }
+    for (int i = 0; i < 26; i++)
+        IntStackPush(&s, 'A'+i);
 
     printf("Stack size: %d\n", s.sz);
-    printf("Queue size: %d\n", q.sz);
 
     // Pop operations.
-    puts("Stack | Queue");
-    for (int i = 0; i < 26; i++) {
-        int *stackVal = (int *)StackPop(&s);
-        int *queueVal = (int *)QueuePop(&q);
-        printf("%c     | %c\n", *stackVal, *queueVal);
-
-        free(stackVal);
-        free(queueVal);
-    }
+    for (int i = 0; i < 26; i++)
+        printf("%c\n", IntStackPop(&s));
 
     printf("Stack size: %d\n", s.sz);
-    printf("Queue size: %d\n", q.sz);
 
-    // TreeNode operations
+    // TreeNode operations.
     TreeNode* root = TreeNodeNew('A');
     root->left = TreeNodeNew('B');
     root->right = TreeNodeNew('C');
