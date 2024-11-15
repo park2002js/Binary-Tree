@@ -3,25 +3,25 @@
 #include "node.h"
 #include "stack.h"
 
-void StackInit(Stack *s) {
+void IntStackInit(IntStack *s) {
     s->top = NULL;
     s->sz = 0;
 }
 
-void StackPush(Stack *s, void *val) {
-    Node *n = NodeNew(val);
+void IntStackPush(IntStack *s, int val) {
+    IntNode *n = IntNodeNew(val);
     n->next = s->top;
     s->top = n;
     s->sz++;
 }
 
-void* StackPeek(Stack *s) {
+int IntStackPeek(IntStack *s) {
     return s->top->val;
 }
 
-void *StackPop(Stack *s) {
-    Node *n = s->top;
-    void* val = n->val;
+int IntStackPop(IntStack *s) {
+    IntNode *n = s->top;
+    int val = n->val;
     s->top = s->top->next;
     s->sz--;
     free(n);

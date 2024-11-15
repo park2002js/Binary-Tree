@@ -3,15 +3,15 @@
 
 #include "node.h"
 
-typedef struct Queue {
-    Node *front;
-    Node *back;
+typedef struct VoidQueue {
+    VoidNode *front;
+    VoidNode *back;
     int sz;
-} Queue;
+} VoidQueue;
 
-void QueueInit(Queue *q);
-void QueuePush(Queue *q, void* val);
-void* QueuePeek(Queue *q);
-void* QueuePop(Queue *q);
+void VoidQueueInit(VoidQueue *q);
+void VoidQueuePush(VoidQueue *q, void* val);
+void* VoidQueuePeek(VoidQueue *q);
+void* VoidQueuePop(VoidQueue *q);
 
 #endif

@@ -1,10 +1,17 @@
 #ifndef BINARY_TREE_NODE_H_
 #define BINARY_TREE_NODE_H_
 
-typedef struct Node {
-    void* val;
-    struct Node *next;
-} Node;
+typedef struct IntNode {
+    int val;
+    struct IntNode *next;
+} IntNode;
 
-Node *NodeNew(void* val);
+typedef struct VoidNode {
+    void* val;
+    struct VoidNode *next;
+} VoidNode;
+
+IntNode *IntNodeNew(int val);
+VoidNode *VoidNodeNew(void* val);
+
 #endif

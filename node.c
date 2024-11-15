@@ -2,8 +2,15 @@
 
 #include "node.h"
 
-Node *NodeNew(void* val) {
-    Node *n = malloc(sizeof(Node));
+IntNode *IntNodeNew(int val) {
+    IntNode *n = malloc(sizeof(VoidNode));
+    n->val = val;
+    n->next = NULL;
+    return n;
+}
+
+VoidNode *VoidNodeNew(void* val) {
+    VoidNode *n = malloc(sizeof(VoidNode));
     n->val = val;
     n->next = NULL;
     return n;

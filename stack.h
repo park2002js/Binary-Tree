@@ -3,14 +3,14 @@
 
 #include "node.h"
 
-typedef struct Stack {
-    Node *top;
+typedef struct IntStack {
+    IntNode *top;
     int sz;
-} Stack;
+} IntStack;
 
-void StackInit(Stack *s);
-void StackPush(Stack *s, void *val);
-void* StackPeek(Stack *s);
-void* StackPop(Stack *s);
+void IntStackInit(IntStack *s);
+void IntStackPush(IntStack *s, int val);
+int IntStackPeek(IntStack *s);
+int IntStackPop(IntStack *s);
 
 #endif
