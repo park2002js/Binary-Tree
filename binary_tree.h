@@ -20,5 +20,4 @@ void PrefixOrder(TreeNode *head);
 void PostfixOrder(TreeNode *head);
 void LevelOrder(TreeNode *head);
 
-
 #endif //BINARY_TREE_BINARY_TREE_H

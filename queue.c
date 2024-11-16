@@ -3,14 +3,14 @@
 #include "node.h"
 #include "queue.h"
 
-void VoidQueueInit(VoidQueue *q) {
+void QueueInit(Queue *q) {
     q->front = NULL;
     q->back = NULL;
     q->sz = 0;
 }
 
-void VoidQueuePush(VoidQueue *q, void* val) {
-    VoidNode *n = VoidNodeNew(val);
+void QueuePush(Queue *q, void* val) {
+    Node *n = NodeNew(val);
     if (q->back)
         q->back->next = n;
     else
@@ -19,16 +19,16 @@ void VoidQueuePush(VoidQueue *q, void* val) {
     q->sz++;
 }
 
-void* VoidQueuePeek(VoidQueue *q) {
+void* QueuePeek(Queue *q) {
     return q->front->val;
 }
 
-void* VoidQueuePop(VoidQueue *q) {
+void* QueuePop(Queue *q) {
     if (q->front == NULL) {
         return NULL;
     }
 
-    VoidNode *n = q->front;
+    Node *n = q->front;
     void *val = n->val;
     q->front = q->front->next;
     if (!q->front)

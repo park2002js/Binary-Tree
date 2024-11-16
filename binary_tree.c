@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdint.h>
 #include "binary_tree.h"
 
 int Precedence(int op) {
@@ -29,64 +30,59 @@ void TreeFree(TreeNode* head) {
 }
 
 TreeNode* CreateExpressionTree(char* expression) {
-    IntStack operators;
-    IntStack operands;
-    IntStackInit(&operators);
-    IntStackInit(&operands);
+    Stack operators;
+    Stack operands;
+    StackInit(&operators);
+    StackInit(&operands);
 
     for (int i = 0; expression[i] != '\0'; i++) {
         char token = expression[i];
 
         if (token >= '0' && token <= '9') {
-            TreeNode* node = TreeNodeNew(token);
-            IntStackPush(&operands, (int)(intptr_t)node);
-        } else if (token == '(') {
-            IntStackPush(&operators, (int)(intptr_t)TreeNodeNew(token));
+            StackPush(&operands, TreeNodeNew(token));
+	} else if (token == '(') {
+	    StackPush(&operators, TreeNodeNew(token));
         } else if (token == ')') {
-            while (!IntStackIsEmpty(&operators) &&
-                   (char)((TreeNode*)(intptr_t)IntStackPeek(&operators))->data != '(') {
-                TreeNode* opNode = (TreeNode*)(intptr_t)IntStackPop(&operators);
-                TreeNode* rightOperand = (TreeNode*)(intptr_t)IntStackPop(&operands);
-                TreeNode* leftOperand = (TreeNode*)(intptr_t)IntStackPop(&operands);
+            while (operators.sz > 0 && ((TreeNode*) StackPeek(&operators))->data != '(') {
+                TreeNode* opNode = (TreeNode*) StackPop(&operators);
+                TreeNode* rightOperand = (TreeNode*) StackPop(&operands);
+                TreeNode* leftOperand = (TreeNode*) StackPop(&operands);
 
                 opNode->right = rightOperand;
                 opNode->left = leftOperand;
 
-                IntStackPush(&operands, (int)(intptr_t)opNode);
+                StackPush(&operands, opNode);
             }
-            IntStackPop(&operators);
+            StackPop(&operators);
         } else if (token == '+' || token == '-' || token == '*' || token == '/') {
-            while (!IntStackIsEmpty(&operators) && Precedence((char)((TreeNode*)(intptr_t)IntStackPeek(&operators))->data) >= Precedence(token)) {
-                TreeNode* opNode = (TreeNode*)(intptr_t)IntStackPop(&operators);
-                TreeNode* rightOperand = (TreeNode*)(intptr_t)IntStackPop(&operands);
-                TreeNode* leftOperand = (TreeNode*)(intptr_t)IntStackPop(&operands);
+            while (operators.sz > 0 && Precedence(((TreeNode*) StackPeek(&operators))->data) >= Precedence(token)) {
+                TreeNode* opNode = (TreeNode*) StackPop(&operators);
+                TreeNode* rightOperand = (TreeNode*) StackPop(&operands);
+                TreeNode* leftOperand = (TreeNode*) StackPop(&operands);
 
                 opNode->right = rightOperand;
                 opNode->left = leftOperand;
 
-                IntStackPush(&operands, (int)(intptr_t)opNode);
+                StackPush(&operands, opNode);
             }
             TreeNode* opNode = TreeNodeNew(token);
-            IntStackPush(&operators, (int)(intptr_t)opNode);
+            StackPush(&operators, opNode);
         }
     }
 
-    while (!IntStackIsEmpty(&operators)) {
-        TreeNode* opNode = (TreeNode*)(intptr_t)IntStackPop(&operators);
-        TreeNode* rightOperand = (TreeNode*)(intptr_t)IntStackPop(&operands);
-        TreeNode* leftOperand = (TreeNode*)(intptr_t)IntStackPop(&operands);
+    while (operators.sz > 0) {
+        TreeNode* opNode = (TreeNode*) StackPop(&operators);
+        TreeNode* rightOperand = (TreeNode*) StackPop(&operands);
+        TreeNode* leftOperand = (TreeNode*) StackPop(&operands);
 
         opNode->right = rightOperand;
         opNode->left = leftOperand;
 
-        IntStackPush(&operands, (int)(intptr_t)opNode);
+        StackPush(&operands, opNode);
     }
 
-    return (TreeNode*)(intptr_t)IntStackPop(&operands);
+    return (TreeNode*) StackPop(&operands);
 }
-
-
-
 
 void InfixOrder(TreeNode *head) {
     if (head) {
@@ -116,21 +112,21 @@ void LevelOrder(TreeNode* head) {
     if (!head)
         return;
     
-    VoidQueue q;
-    VoidQueueInit(&q);
-    VoidQueuePush(&q, head);
+    Queue q;
+    QueueInit(&q);
+    QueuePush(&q, head);
 
     while (q.sz > 0) {
-        head = (TreeNode*) VoidQueuePop(&q);
+        head = (TreeNode*) QueuePop(&q);
 
         if (head != NULL) {
             printf("%c ", head->data);
 
             if (head->left != NULL)
-                VoidQueuePush(&q, head->left);
+                QueuePush(&q, head->left);
             
             if (head->right != NULL)
-                VoidQueuePush(&q, head->right);
+                QueuePush(&q, head->right);
         }
     }
 }
