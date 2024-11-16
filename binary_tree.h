@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
+#include "stack.h"
 #include "queue.h"
 
 typedef struct TreeNode {
@@ -13,9 +13,12 @@ typedef struct TreeNode {
 } TreeNode;
 
 TreeNode *TreeNodeNew(int data);
+void TreeFree(TreeNode* head);
+TreeNode* CreateExpressionTree(char* expression);
 void InfixOrder(TreeNode *head);
 void PrefixOrder(TreeNode *head);
 void PostfixOrder(TreeNode *head);
 void LevelOrder(TreeNode *head);
+
 
 #endif //BINARY_TREE_BINARY_TREE_H

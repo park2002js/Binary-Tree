@@ -12,5 +12,6 @@ void IntStackInit(IntStack *s);
 void IntStackPush(IntStack *s, int val);
 int IntStackPeek(IntStack *s);
 int IntStackPop(IntStack *s);
+int IntStackIsEmpty(IntStack *s);
 
 #endif

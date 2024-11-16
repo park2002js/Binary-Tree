@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
 #include "stack.h"
-#include "queue.h"
 #include "binary_tree.h"
 
 int main() {
@@ -44,6 +40,28 @@ int main() {
     printf("Postfix-order: ");
     PostfixOrder(root);
     printf("\n");
+
+    TreeFree(root);
+
+    char expression[] = "3+5*2-8/4";
+    TreeNode* exp = CreateExpressionTree(expression);
+    printf("Level-order22: ");
+    LevelOrder(exp);
+    printf("\n");
+
+    printf("Infix-order: ");
+    InfixOrder(exp);
+    printf("\n");
+
+    printf("Prefix-order: ");
+    PrefixOrder(exp);
+    printf("\n");
+
+    printf("Postfix-order: ");
+    PostfixOrder(exp);
+    printf("\n");
+
+    TreeFree(exp);
 
     return 0;
 }

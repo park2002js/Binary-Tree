@@ -27,3 +27,7 @@ int IntStackPop(IntStack *s) {
     free(n);
     return val;
 }
+
+int IntStackIsEmpty(IntStack *s) {
+    return s->top == NULL;
+}
