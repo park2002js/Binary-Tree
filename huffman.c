@@ -30,21 +30,21 @@ void encoding(HuffNode* current, char* str, int level, char* encode[]){
         str[level] = '0';
         encoding(current->right, str, level+1, encode);
     }
-    // leaf nodeÀÏ °æ¿ì
+    // leaf nodeì¼ ê²½ìš°
     if(!current->left && !current->right){
         str[level] = '\0';
-        // ÇöÀç±îÁö encodingÇÑ ¹®ÀÚ¿­ strÀ», encode ¹®ÀÚ¿­ ¹è¿­¿¡ »ðÀÔ
-        // ÀÌ¶§ »ðÀÔµÇ´Â ¹è¿­ÀÇ ÀÎµ¦½º(¿ø¼Ò)´Â 0ÀÌ A, 25°¡ ZÀÎ ¹®ÀÚ¿­ ¹è¿­ÀÌ´Ù.
+        // í˜„ìž¬ê¹Œì§€ encodingí•œ ë¬¸ìžì—´ strì„, encode ë¬¸ìžì—´ ë°°ì—´ì— ì‚½ìž…
+        // ì´ë•Œ ì‚½ìž…ë˜ëŠ” ë°°ì—´ì˜ ì¸ë±ìŠ¤(ì›ì†Œ)ëŠ” 0ì´ A, 25ê°€ Zì¸ ë¬¸ìžì—´ ë°°ì—´ì´ë‹¤.
         strcpy(encode[(current->ascii)-'A'], str);
 
-        // encode[(current->ascii)-'A'] = str; <- ÀÌ·¸°Ô ÇÏ¸é?
+        // encode[(current->ascii)-'A'] = str; <- ì´ë ‡ê²Œ í•˜ë©´?
     }
 }
 
 void decoding(HuffNode* root, char* encode, char* decode){
     
     int index=0;
-    HuffNode* current = root;  // ³ªÁß¿¡ ¿øº»À¸·Î µ¹¾Æ¿À±â À§ÇØ¼­ root¸¦ º¸Á¸
+    HuffNode* current = root;  // ë‚˜ì¤‘ì— ì›ë³¸ìœ¼ë¡œ ëŒì•„ì˜¤ê¸° ìœ„í•´ì„œ rootë¥¼ ë³´ì¡´
     for(int i=0; i<strlen(encode); i++){
         if(encode[i]=='1'){
             current = current->left;
@@ -53,7 +53,7 @@ void decoding(HuffNode* root, char* encode, char* decode){
         }
 
         if(!current->left && !current->right){
-            decode[index++] = current->ascii;   // '=' ¿¬»êÀÚ°¡ ¾ÈÀüÇÑ°¡?
+            decode[index++] = current->ascii;   // '=' ì—°ì‚°ìžê°€ ì•ˆì „í•œê°€?
             current = root;
         }
     }
@@ -64,20 +64,20 @@ void decoding(HuffNode* root, char* encode, char* decode){
 
 HuffNode* makeHuffmanTree(char* line){
 
-    // 1. °¢ ¹®ÀÚº° ºóµµ¼ö ±¸ÇÏ±â
-    HuffNode* arrayHuff[alpha] = {NULL}; // ¸ðµç ¿ø¼Ò¸¦ NULL·Î ÃÊ±âÈ­
-    int count = 0; // ¹®ÀÚ Á¾·ù °¹¼ö, Áï arrayHuffÀÇ À¯È¿ ¿ø¼Ò °¹¼ö ÀúÀå Á¤¼ö
+    // 1. ê° ë¬¸ìžë³„ ë¹ˆë„ìˆ˜ êµ¬í•˜ê¸°
+    HuffNode* arrayHuff[alpha] = {NULL}; // ëª¨ë“  ì›ì†Œë¥¼ NULLë¡œ ì´ˆê¸°í™”
+    int count = 0; // ë¬¸ìž ì¢…ë¥˜ ê°¯ìˆ˜, ì¦‰ arrayHuffì˜ ìœ íš¨ ì›ì†Œ ê°¯ìˆ˜ ì €ìž¥ ì •ìˆ˜
     
-    // °¢ ¹®ÀÚ¿¡ ÇØ´çÇÏ´Â ÀÎµ¦½º¿¡ Node¸¦ »ý¼ºÇÏ°í ºóµµ¼ö¸¦ Áõ°¡½ÃÅ´
+    // ê° ë¬¸ìžì— í•´ë‹¹í•˜ëŠ” ì¸ë±ìŠ¤ì— Nodeë¥¼ ìƒì„±í•˜ê³  ë¹ˆë„ìˆ˜ë¥¼ ì¦ê°€ì‹œí‚´
     for(int i=0; i<strlen(line); i++){
 
         int index = line[i]-'A';
 
-        if(arrayHuff[index] != NULL) {  // Á¸ÀçÇÒ °æ¿ì ºóµµ¼ö Áõ°¡
+        if(arrayHuff[index] != NULL) {  // ì¡´ìž¬í•  ê²½ìš° ë¹ˆë„ìˆ˜ ì¦ê°€
 
             arrayHuff[index]->freq++;
 
-        } else {    // node°¡ Á¸ÀçÇÏÁö ¾ÊÀ» °æ¿ì (Áö±Ý±îÁö ¹®ÀÚ¿­¿¡¼­ ¾È³ª¿Â ¹®ÀÚ) »õ·Î Node¸¦ »ý¼º
+        } else {    // nodeê°€ ì¡´ìž¬í•˜ì§€ ì•Šì„ ê²½ìš° (ì§€ê¸ˆê¹Œì§€ ë¬¸ìžì—´ì—ì„œ ì•ˆë‚˜ì˜¨ ë¬¸ìž) ìƒˆë¡œ Nodeë¥¼ ìƒì„±
 
             arrayHuff[index] = makeNode();
             arrayHuff[index]->freq = 1;
@@ -86,21 +86,21 @@ HuffNode* makeHuffmanTree(char* line){
         }
     }
 
-    int lastNodeIndex = 0; // ¾Æ·¡ÀÇ ¹Ýº¹¹®À» °ÅÃÄ ÃÖÁ¾ÀûÀ¸·Î ³²Àº ³ëµåÀÇ ÀÎµ¦½º¸¦ ÀúÀå
+    int lastNodeIndex = 0; // ì•„ëž˜ì˜ ë°˜ë³µë¬¸ì„ ê±°ì³ ìµœì¢…ì ìœ¼ë¡œ ë‚¨ì€ ë…¸ë“œì˜ ì¸ë±ìŠ¤ë¥¼ ì €ìž¥
 
-    // 4. ¾Æ·¡ÀÇ °úÁ¤À» arrayHuff ¹è¿­ÀÇ ¿ø¼Ò°¡ ÇÏ³ª ³²À» ¶§±îÁö ¹Ýº¹
+    // 4. ì•„ëž˜ì˜ ê³¼ì •ì„ arrayHuff ë°°ì—´ì˜ ì›ì†Œê°€ í•˜ë‚˜ ë‚¨ì„ ë•Œê¹Œì§€ ë°˜ë³µ
     while(count>1){
-        count--;    // ¾Æ·¡ÀÇ °úÁ¤À» °ÅÄ¡¸é ¹è¿­ÀÇ ¿ø¼Ò°¡ ÇÏ³ª ÁÙ¾îµé °ÍÀÌ¹Ç·Î
+        count--;    // ì•„ëž˜ì˜ ê³¼ì •ì„ ê±°ì¹˜ë©´ ë°°ì—´ì˜ ì›ì†Œê°€ í•˜ë‚˜ ì¤„ì–´ë“¤ ê²ƒì´ë¯€ë¡œ
 
-        // 2. ºóµµ¼ö°¡ °¡Àå ÀÛÀº ¼ö¸¦ Ã£°í ±× ´ÙÀ½ µÎ¹øÂ°·Î ÀÛÀº ¼ö¸¦ Ã£±â
-        int min = 0;    // °¡Àå ºóµµ¼ö°¡ ÀÛÀº index¿Í ±× ºóµµ¼ö
+        // 2. ë¹ˆë„ìˆ˜ê°€ ê°€ìž¥ ìž‘ì€ ìˆ˜ë¥¼ ì°¾ê³  ê·¸ ë‹¤ìŒ ë‘ë²ˆì§¸ë¡œ ìž‘ì€ ìˆ˜ë¥¼ ì°¾ê¸°
+        int min = 0;    // ê°€ìž¥ ë¹ˆë„ìˆ˜ê°€ ìž‘ì€ indexì™€ ê·¸ ë¹ˆë„ìˆ˜
         int minFreq = 0;
-        int min2 = 0;   // µÎ¹øÂ°·Î ºóµµ¼ö°¡ ÀÛÀº index¿Í ±× ºóµµ¼ö
+        int min2 = 0;   // ë‘ë²ˆì§¸ë¡œ ë¹ˆë„ìˆ˜ê°€ ìž‘ì€ indexì™€ ê·¸ ë¹ˆë„ìˆ˜
         int minFreq2 = 0;
 
         for(int i=0; i<alpha; i++) {
             
-            if(arrayHuff[i] != NULL) { // Á¸ÀçÇÏ´Â ¹®ÀÚ¿¡ ´ëÇØ¼­¸¸ ºóµµ¼ö Ã£±â ÁøÇà
+            if(arrayHuff[i] != NULL) { // ì¡´ìž¬í•˜ëŠ” ë¬¸ìžì— ëŒ€í•´ì„œë§Œ ë¹ˆë„ìˆ˜ ì°¾ê¸° ì§„í–‰
 
                 if(minFreq == 0) {
                     minFreq = arrayHuff[i]->freq;
@@ -109,7 +109,7 @@ HuffNode* makeHuffmanTree(char* line){
                     minFreq2 = arrayHuff[i]->freq;
                     min2 = i;
 
-                    if(minFreq > minFreq2) { // minFreq2¿¡ ´õ ÀÛÀº °ªÀÌ ÀúÀåµÈ °æ¿ì minFreq¿¡ ´õ ÀÛÀº °ªÀÌ ÀúÀåµÇµµ·Ï ±³È¯
+                    if(minFreq > minFreq2) { // minFreq2ì— ë” ìž‘ì€ ê°’ì´ ì €ìž¥ëœ ê²½ìš° minFreqì— ë” ìž‘ì€ ê°’ì´ ì €ìž¥ë˜ë„ë¡ êµí™˜
                         int temp = minFreq2;
                         minFreq2 = minFreq;
                         minFreq = temp;
@@ -119,8 +119,9 @@ HuffNode* makeHuffmanTree(char* line){
                         min = temp;
                     }
                 } else {
-                    if(minFreq > arrayHuff[i]->freq){
-                        // °¡Àå ÀÛÀº °ÍÀ» ¹ß°ßÇßÀ¸¹Ç·Î minÀÌ °¡Áö°í ÀÖ´Â °ªÀº ÀÚ¿¬½º·¹ µÎ¹øÀç·Î ÀÛÀº °ªÀÌ µÊ
+                    // ê°€ìž¥ ìž‘ì€ ê°’ì¸ minFreqì™€ ê°™ê±°ë‚˜ ë” ìž‘ì„ ê²½ìš°
+                    if(minFreq >= arrayHuff[i]->freq){
+                        // ê°€ìž¥ ìž‘ì€ ê²ƒì„ ë°œê²¬í–ˆìœ¼ë¯€ë¡œ minì´ ê°€ì§€ê³  ìžˆëŠ” ê°’ì€ ìžì—°ìŠ¤ë ˆ ë‘ë²ˆìž¬ë¡œ ìž‘ì€ ê°’ì´ ë¨
                         minFreq2 = minFreq;
                         min2 = min;
                         
@@ -131,49 +132,49 @@ HuffNode* makeHuffmanTree(char* line){
             }
         }
 
-        // 3. ºóµµ¼ö°¡ °¡Àå ³·Àº µÎ °³¸¦ ÇÕÃÄ Áß°£³ëµå·Î »ý¼º
-        HuffNode* internalNode = makeNode();    // Áß°£ ³ëµå »ý¼º
-        internalNode->freq = minFreq + minFreq2;    // Áß°£ ³ëµå¿¡ ÀúÀåµÈ freq´Â µÎ ³ëµåÀÇ freqÀÇ ÇÕ
+        // 3. ë¹ˆë„ìˆ˜ê°€ ê°€ìž¥ ë‚®ì€ ë‘ ê°œë¥¼ í•©ì³ ì¤‘ê°„ë…¸ë“œë¡œ ìƒì„±
+        HuffNode* internalNode = makeNode();    // ì¤‘ê°„ ë…¸ë“œ ìƒì„±
+        internalNode->freq = minFreq + minFreq2;    // ì¤‘ê°„ ë…¸ë“œì— ì €ìž¥ëœ freqëŠ” ë‘ ë…¸ë“œì˜ freqì˜ í•©
 
-        // ºóµµ¼ö¸¦ ³»¸²Â÷¼ø ±âÁØÀ¸·Î Á¤·Ä½Ã, °¡Àå ³·Àº °ÍÀº ¿À¸¥ÂÊÀÌ¹Ç·Î minÀÌ right, min2°¡ left
+        // ë¹ˆë„ìˆ˜ë¥¼ ë‚´ë¦¼ì°¨ìˆœ ê¸°ì¤€ìœ¼ë¡œ ì •ë ¬ì‹œ, ê°€ìž¥ ë‚®ì€ ê²ƒì€ ì˜¤ë¥¸ìª½ì´ë¯€ë¡œ minì´ right, min2ê°€ left
         internalNode->right = arrayHuff[min];
         internalNode->left = arrayHuff[min2];
 
-        // Áß°£ ³ëµå´Â °¡Àå ³·Àº °ªÀÌ ÀÖ¾ú´ø ±¸Á¶Ã¼ ¹è¿­ ÀÎµ¦½º¿¡ ÇÒ´ç, ³ª¸ÓÁö´Â NULL·Î ¿¬°áÀ» ²÷À½
+        // ì¤‘ê°„ ë…¸ë“œëŠ” ê°€ìž¥ ë‚®ì€ ê°’ì´ ìžˆì—ˆë˜ êµ¬ì¡°ì²´ ë°°ì—´ ì¸ë±ìŠ¤ì— í• ë‹¹, ë‚˜ë¨¸ì§€ëŠ” NULLë¡œ ì—°ê²°ì„ ëŠìŒ
         arrayHuff[min] = internalNode;
         arrayHuff[min2] = NULL;
         lastNodeIndex = min;
     }
 
-    // arrayHuff´Â µ¿ÀûÇÒ´çÀ» ¾ÈÇßÁö¸¸, ¾È¿¡ Á¸ÀçÇÏ´Â ³ëµåµéÀº ¸ðµÎ µ¿ÀûÇÒ´çµÈ °ÍÀÌ¹Ç·Î ÀÌ ÇÔ¼ö°¡ Á¾·áµÇµµ À¯ÁöµÇÁö ¾ÊÀ»±î?
+    // arrayHuffëŠ” ë™ì í• ë‹¹ì„ ì•ˆí–ˆì§€ë§Œ, ì•ˆì— ì¡´ìž¬í•˜ëŠ” ë…¸ë“œë“¤ì€ ëª¨ë‘ ë™ì í• ë‹¹ëœ ê²ƒì´ë¯€ë¡œ ì´ í•¨ìˆ˜ê°€ ì¢…ë£Œë˜ë„ ìœ ì§€ë˜ì§€ ì•Šì„ê¹Œ?
     return arrayHuff[lastNodeIndex]; 
     
 }
 
 int main() {
-    char* line;         // ¿øº» ¹®ÀÚ¿­
-    char* code[alpha];     // °¢ ¾ËÆÄºªº° ÀÌÁøÄÚµå ÀúÀå ¹è¿­
-    char encode[1024] = "";  // ¾ËÆÄºª -> ÀÌÁø ÄÚµå ¹®ÀÚ¿­·Î ÀúÀå : ¼öÁ¤À» À§ÇØ ¹è¿­·Î ¼±¾ðÇÔ <- Æ÷ÀÎÅÍ·Î ¼±¾ðÇÒ ½Ã ÂüÁ¶ÇÒ »ÓÀÌ¹Ç·Î ¿øº»À» ¼öÁ¤ÇÏÁö ¸øÇÔ
-    char decode[256] = "";  // ÀÌÁøÄÚµå -> ¾ËÆÄºª ¹®ÀÚ¿­·Î ÀúÀå : ÀÌ ¿ª½Ã ¼öÁ¤À» À§ÇØ ¹è¿­·Î ¼±¾ð <- decoding ÇÔ¼ö¿¡¼­ decode[] = ascii ºÎºÐÀÌ Á¸ÀçÇÏ±â ¶§¹®
+    char* line;         // ì›ë³¸ ë¬¸ìžì—´
+    char* code[alpha];     // ê° ì•ŒíŒŒë²³ë³„ ì´ì§„ì½”ë“œ ì €ìž¥ ë°°ì—´
+    char encode[1024] = "";  // ì•ŒíŒŒë²³ -> ì´ì§„ ì½”ë“œ ë¬¸ìžì—´ë¡œ ì €ìž¥ : ìˆ˜ì •ì„ ìœ„í•´ ë°°ì—´ë¡œ ì„ ì–¸í•¨ <- í¬ì¸í„°ë¡œ ì„ ì–¸í•  ì‹œ ì°¸ì¡°í•  ë¿ì´ë¯€ë¡œ ì›ë³¸ì„ ìˆ˜ì •í•˜ì§€ ëª»í•¨
+    char decode[256] = "";  // ì´ì§„ì½”ë“œ -> ì•ŒíŒŒë²³ ë¬¸ìžì—´ë¡œ ì €ìž¥ : ì´ ì—­ì‹œ ìˆ˜ì •ì„ ìœ„í•´ ë°°ì—´ë¡œ ì„ ì–¸ <- decoding í•¨ìˆ˜ì—ì„œ decode[] = ascii ë¶€ë¶„ì´ ì¡´ìž¬í•˜ê¸° ë•Œë¬¸
 
-    HuffNode* root;     // È£ÇÁ¸¸ ºÎÈ£È­ Æ®¸® ÀúÀå root
+    HuffNode* root;     // í˜¸í”„ë§Œ ë¶€í˜¸í™” íŠ¸ë¦¬ ì €ìž¥ root
 
-    // µ¿ÀûÇÒ´ç ÇÏ°í ¾ÈÇÏ°íÀÇ Â÷ÀÌ? 
+    // ë™ì í• ë‹¹ í•˜ê³  ì•ˆí•˜ê³ ì˜ ì°¨ì´? 
     for(int i=0; i<alpha; i++){
         code[i] = (char*)calloc(1, sizeof(char));
     }
 
-    // ÀÔ·ÂÇÒ ¹®ÀÚ¿­
+    // ìž…ë ¥í•  ë¬¸ìžì—´
     line = "AAABBBBCCD";
 
-    root = makeHuffmanTree(line); // È£ÇÁ¸¸ ºÎÈ£È­ Æ®¸® »ý¼º
+    root = makeHuffmanTree(line); // í˜¸í”„ë§Œ ë¶€í˜¸í™” íŠ¸ë¦¬ ìƒì„±
 
-    // NULL·Î ÃÊ±âÈ­ÇÒ °æ¿ì, str¿¡ »õ·Î ÇÒ´çÇÏÁö ¾Ê´Â ÀÌ»ó Á¢±Ù ¿À·ù ¹ß»ý, \0 Àº ³Î°ªÀÌ¶ó´Â ¹®ÀÚ ¸®ÅÍ·²À» °¡Áø °Í
-    // Æ÷ÀÎÅÍ°¡ ¾Æ´Ñ ¹è¿­·Î ¼±¾ðÇÑ ÀÌÀ¯´Â encoding¿¡¼­ strÀÇ ¿ø¼Ò Á¢±ÙÇØ 0 ¶Ç´Â 1À» ÇÒ´çÇØ¾ß ÇÏ±â ¶§¹®
+    // NULLë¡œ ì´ˆê¸°í™”í•  ê²½ìš°, strì— ìƒˆë¡œ í• ë‹¹í•˜ì§€ ì•ŠëŠ” ì´ìƒ ì ‘ê·¼ ì˜¤ë¥˜ ë°œìƒ, \0 ì€ ë„ê°’ì´ë¼ëŠ” ë¬¸ìž ë¦¬í„°ëŸ´ì„ ê°€ì§„ ê²ƒ
+    // í¬ì¸í„°ê°€ ì•„ë‹Œ ë°°ì—´ë¡œ ì„ ì–¸í•œ ì´ìœ ëŠ” encodingì—ì„œ strì˜ ì›ì†Œ ì ‘ê·¼í•´ 0 ë˜ëŠ” 1ì„ í• ë‹¹í•´ì•¼ í•˜ê¸° ë•Œë¬¸
     char str[10]="";   
-    encoding(root, str, 0, code);  // code¿¡ °¢ ¾ËÆÄºª º° ÀÌÁøÄÚµå ÀúÀå
+    encoding(root, str, 0, code);  // codeì— ê° ì•ŒíŒŒë²³ ë³„ ì´ì§„ì½”ë“œ ì €ìž¥
 
-    printf("È£ÇÁ¸¸ ºÎÈ£È­ Æ®¸® °á°ú : \n");
+    printf("í˜¸í”„ë§Œ ë¶€í˜¸í™” íŠ¸ë¦¬ ê²°ê³¼ : \n");
     for(int i=0; i<alpha; i++){
         if(code[i]!=0) {
             printf("'%c' : %s\n", i+'A', code[i]);
@@ -182,17 +183,17 @@ int main() {
 
 
 
-    printf("ºÎÈ£È­ : ");
-    // ÀÔ·Â¹ÞÀº ¹®ÀÚ¿­À» code¸¦ ÂüÁ¶ÇØ ÀÌÁø ÄÚµå·Î ºÎÈ£È­
+    printf("ë¶€í˜¸í™” : ");
+    // ìž…ë ¥ë°›ì€ ë¬¸ìžì—´ì„ codeë¥¼ ì°¸ì¡°í•´ ì´ì§„ ì½”ë“œë¡œ ë¶€í˜¸í™”
     for(int i=0; line[i] != '\0'; i++){
-        // strcatÀ» »ç¿ëÇØ encode ¹®ÀÚ¿­¿¡ ÀÌÁøÄÚµå º¹»ç, º¹»çµÈ ¹®ÀÚ¿­ µÚ¿¡ ÀÚµ¿À¸·Î ³Î ¹®ÀÚ°¡ ºÙÀ½
+        // strcatì„ ì‚¬ìš©í•´ encode ë¬¸ìžì—´ì— ì´ì§„ì½”ë“œ ë³µì‚¬, ë³µì‚¬ëœ ë¬¸ìžì—´ ë’¤ì— ìžë™ìœ¼ë¡œ ë„ ë¬¸ìžê°€ ë¶™ìŒ
         strcat(encode, code[line[i] - 'A']);
         printf("%s ",code[line[i] - 'A']);
     }
     printf("\n");
 
 
-    printf("º¹È£È­ : ");
+    printf("ë³µí˜¸í™” : ");
     decoding(root, encode, decode);
     printf("%s \n", decode);
     return 0;
