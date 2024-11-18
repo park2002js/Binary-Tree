@@ -1,5 +1,6 @@
 #include "stack.h"
 #include "binary_tree.h"
+#include "huffman.h"
 
 int main() {
     /*
@@ -48,6 +49,10 @@ int main() {
     printf("\n");
 
     TreeFree(exp);
+
+    printf("\nHuffman code\n");
+    char* line = "a good market";
+    HuffmanEncodeDecode(line);
 
     return 0;
 }
