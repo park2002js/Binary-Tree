@@ -51,7 +51,7 @@ int main() {
     TreeFree(exp);
 
     printf("\nHuffman code\n");
-    char* line = "a good market";
+    char* line = "The Only Way To Do Great Work Is To Love What You Do";
     HuffmanEncodeDecode(line);
 
     return 0;
