@@ -22,7 +22,7 @@ stack.o: stack.c
 
 run : main
 	./main
-# "make run" ÀÔ·Â½Ã ½ÇÇà±îÁö ÁøÇà
+# "make run" ì…ë ¥ì‹œ ë¹Œë“œ ë° ì‹¤í–‰ê¹Œì§€
 
 clean:
 	rm -f main main.exe *.o 
