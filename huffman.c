@@ -170,11 +170,11 @@ void HuffTreeFree(HuffNode* root){
     free(root);
 }
 
-void HuffmanEncodeDecode(char* line) {
+void HuffmanEncodeDecode(char* line, char* words[5]) {
 
-    printf("origin string : %s\n", line);
+    
+    printf("\norigin string : %s\n", line);
     printf("-----------------------------\n");
-
     char* code[alpha] = {NULL};
     char encode[1024] = "";
     char decode[256] = "";
@@ -187,29 +187,24 @@ void HuffmanEncodeDecode(char* line) {
     char str[10]="";   
     Encoding(root, str, 0, code);
 
-    printf("result of huffman binary tree : \n");
-    for(int i=0; i<alpha; i++){
-        if(code[i]!=NULL) {
-            if(i < 26) {
-                printf("'%c' : ", i+97);
-            } else if ( i < 52) {
-                printf("'%c' : ", i+39);
-            } else {
-                printf("' ' : ");
-            }
-                
-            printf("%s\n", code[i]);
-        }
-    }
-    printf("-----------------------------\n");
-
     // Encoding
-    printf("Encoding : ");
+    printf("Encoding 5 words: \n");
+    for(int i=0; i<5; i++){
+        printf("\"%s\" : ", words[i]);
+        for(int k=0; words[i][k] != '\0'; k++){
+            printf("%s",code[AsciiCheck(words[i][k])]);
+        }
+        printf("\n");
+    }
+
+    int size=0;
     for(int i=0; line[i] != '\0'; i++){
         strcat(encode, code[AsciiCheck(line[i])]);
-        printf("%s ",code[AsciiCheck(line[i])]);
+        size += strlen(code[AsciiCheck(line[i])]);
     }
-    printf("\n");
+    printf("Encoding string : %s\n", encode);
+    printf("Length of Huffman encoding string : %d\n", size);
+    printf("-----------------------------\n");
 
     // Decoding
     printf("Decoding : ");
