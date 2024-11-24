@@ -22,7 +22,7 @@ int Compare(const void*, const void*);
 HuffNode* MakeHuffmanTree(char*);
 void BinaryCodeFree(char* []);
 void HuffTreeFree(HuffNode*);
-void HuffmanEncodeDecode(char*);
+void HuffmanEncodeDecode(char*, char* []);
 
 
 #endif
