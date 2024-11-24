@@ -52,7 +52,8 @@ int main() {
 
     printf("\nHuffman code\n");
     char* line = "The Only Way To Do Great Work Is To Love What You Do";
-    HuffmanEncodeDecode(line);
+    char* words[5] = {"What", "To", "Do", "Only", "You"};
+    HuffmanEncodeDecode(line, words);
 
     return 0;
 }
